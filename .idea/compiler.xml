@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="practice" />
+        <module name="judge" />
+        <module name="docManage" />
+        <module name="contest" />
+        <module name="infoTable" />
+        <module name="gateWay" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="contest" options="-parameters" />
+      <module name="docManage" options="-parameters" />
+      <module name="gateWay" options="-parameters" />
+      <module name="infoTable" options="-parameters" />
+      <module name="judge" options="-parameters" />
+      <module name="practice" options="-parameters" />
+    </option>
+  </component>
+</project>
