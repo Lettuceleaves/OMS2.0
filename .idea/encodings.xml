@@ -5,7 +5,9 @@
     <file url="file://$PROJECT_DIR$/docManage/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateWay/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/infoTable/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/judge/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/practice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/run/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

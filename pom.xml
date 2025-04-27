@@ -38,6 +38,7 @@
         <minio.version>8.5.17</minio.version>
         <lombok.version>1.18.36</lombok.version>
         <ai-api.version>1.0.0-M5</ai-api.version>
+        <k8s.version>16.0.0</k8s.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -45,49 +46,24 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- springboot -->
+            <!-- springboot bom -->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
-            <!-- springboot starter -->
-
-            <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-config-spring-boot-starter</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
-            </dependency>
-
-            <!-- spring-cloud -->
+            <!-- spring-cloud bom -->
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
-            </dependency>
-
-            <!-- spring-cloud openfeign -->
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-openfeign-core</artifactId>
-            </dependency>
-
-            <!-- spring-cloud bootstrap -->
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-bootstrap</artifactId>
-            </dependency>
-
-            <!-- spring-cloud loadbalance -->
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- spring web starter -->
@@ -103,6 +79,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webflux</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- nacos starter -->
+
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
             </dependency>
 
             <!-- nacos discovery -->
@@ -159,6 +143,15 @@
                 <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
                 <version>${ai-api.version}</version>
             </dependency>
+
+            <!-- k8s -->
+
+            <dependency>
+                <groupId>io.kubernetes</groupId>
+                <artifactId>client-java</artifactId>
+                <version>${k8s.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
