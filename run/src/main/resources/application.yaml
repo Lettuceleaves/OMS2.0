@@ -3,3 +3,10 @@ server:
 spring:
   application:
     name: run
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+    com.zaxxer.hikari: DEBUG
+    org.mybatis: DEBUG
+    com.OMS.user_service.client: DEBUG
