@@ -5,16 +5,18 @@ import com.OMS.run.service.k8sService;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
+import io.kubernetes.client.openapi.apis.BatchV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
-import io.kubernetes.client.openapi.models.V1Pod;
-import io.kubernetes.client.openapi.models.V1PodList;
+import io.kubernetes.client.openapi.models.*;
 import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.credentials.AccessTokenAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Service
 public class k8sServiceImpl implements k8sService {
@@ -56,5 +58,66 @@ public class k8sServiceImpl implements k8sService {
         for (V1Pod item : list.getItems()) {
             System.out.println(item.getMetadata().getName());
         }
+    }
+
+    @Override
+    public void jobTest () throws ApiException, IOException {
+
+        // 创建 BatchV1Api 实例
+        BatchV1Api batchV1Api = new BatchV1Api();
+
+        System.out.println("Creating a Kubernetes Job...");
+
+        // 创建 Job 的元数据
+        V1ObjectMeta jobMetadata = new V1ObjectMeta()
+                .name("example-job")
+                .namespace("default");
+
+        System.out.println("Created metedata success");
+
+        // 创建 Pod 的容器
+        V1Container container = new V1Container()
+                .name("example-container")
+                .image("busybox")
+                .command(Collections.singletonList("echo"))
+                .args(Collections.singletonList("Hello, Kubernetes!"));
+
+        System.out.println("Creating container success");
+
+        V1PodSpec podSpec = new V1PodSpec()
+                .containers(java.util.Collections.singletonList(container))
+                .restartPolicy("Never"); // 设置 Pod 模板的重启策略为 Never
+
+        // 创建 Pod 的模板
+        V1PodTemplateSpec podTemplateSpec = new V1PodTemplateSpec()
+                .metadata(new V1ObjectMeta().name("example-pod"))
+                .spec(podSpec);
+
+        System.out.println("Creating pod template");
+
+        // 创建 Job 的规格
+        V1JobSpec jobSpec = new V1JobSpec()
+                .template(podTemplateSpec)
+                .backoffLimit(4);
+
+        System.out.println("Creating job spec success");
+
+        // 创建 Job
+        V1Job job = new V1Job()
+                .metadata(jobMetadata)
+                .spec(jobSpec);
+
+        System.out.println("Creating job success");
+
+        // 提交 Job 到 Kubernetes 集群
+        try {
+            // 提交 Job 到 Kubernetes 集群
+            V1Job createdJob = batchV1Api.createNamespacedJob("default", job, null, null, null, null);
+            System.out.println("Job created: " + createdJob.getMetadata().getName());
+        } catch (ApiException e) {
+            System.err.println("Failed to create Job: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+
     }
 }

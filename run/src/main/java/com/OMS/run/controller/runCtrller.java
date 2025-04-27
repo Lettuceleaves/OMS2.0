@@ -19,4 +19,10 @@ public class runCtrller {
         k8s.test();
         return "test success";
     }
+
+    @GetMapping("/jobTest")
+    public String jobTest() throws ApiException, IOException {
+        k8s.jobTest();
+        return "jobTest success";
+    }
 }
