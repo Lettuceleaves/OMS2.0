@@ -9,4 +9,5 @@ public interface k8sService {
     String[] runJob(MultipartFile userFile, MultipartFile[] input, int timelimitms, String language) throws Exception;
     void test() throws ApiException, IOException;
     void jobTest () throws ApiException, IOException;
+    void jobFileTest () throws ApiException, IOException;
 }

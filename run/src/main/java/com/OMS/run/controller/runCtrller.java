@@ -25,4 +25,11 @@ public class runCtrller {
         k8s.jobTest();
         return "jobTest success";
     }
+
+    @GetMapping("/jobFileTest")
+    public String jobFileTest() throws ApiException, IOException {
+        k8s.jobFileTest();
+        return "jobTest success";
+    }
+
 }

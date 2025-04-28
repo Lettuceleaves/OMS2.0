@@ -6,6 +6,18 @@
     <artifactId>OMS2.0</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>OMS2.0</name>
+    <dependencies>
+        <dependency>
+            <groupId>io.kubernetes</groupId>
+            <artifactId>client-java-api</artifactId>
+            <version>16.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.kubernetes</groupId>
+            <artifactId>client-java</artifactId>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
