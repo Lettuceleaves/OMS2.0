@@ -48,11 +48,6 @@ public class runServiceImpl implements runService {
             throw new Exception("Failed to create output file at: " + outputFilePath.getAbsolutePath());
         }
 
-//        // 将"E:\projects\OMS2.0\run\src\main\java\com\OMS\run\monitor\run.exe"复制到pat目录
-//        String runPath = "E:\\projects\\OMS2.0\\run\\src\\main\\java\\com\\OMS\\run\\monitor\\run.exe";
-//        File runFilePath = new File(path + "\\run.exe");
-//        Files.copy(Paths.get(runPath), Paths.get(runFilePath.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-        // 将"E:\projects\OMS2.0\run\src\main\java\com\OMS\run\monitor\run.exe"复制到path目录
         String runPath = "E:\\projects\\OMS2.0\\run\\src\\main\\java\\com\\OMS\\run\\monitor\\run.exe";
         File runFilePath = new File(path + "\\run.exe");
         if (!runFilePath.getParentFile().exists()) {
