@@ -8,15 +8,19 @@
         <outputRelativeToContentRoot value="true" />
         <module name="practice" />
         <module name="run" />
-        <module name="docManage" />
         <module name="contest" />
-        <module name="infoTable" />
         <module name="gateWay" />
+        <module name="advice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="docManage" target="17" />
+      <module name="infoTable" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="advice" options="-parameters" />
       <module name="contest" options="-parameters" />
       <module name="docManage" options="-parameters" />
       <module name="gateWay" options="-parameters" />

@@ -1,9 +1,6 @@
-E:\projects\OMS2.0\run\src\main\java\com\OMS\run\client\runClient.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\config\inputCoMapCacheConfig.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\controller\runCtrller.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\runApplication.java
-E:\projects\OMS2.0\run\src\main\java\com\OMS\run\service\cacheService.java
-E:\projects\OMS2.0\run\src\main\java\com\OMS\run\service\impl\cacheServiceImpl.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\service\impl\runServiceImpl.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\service\runService.java
 E:\projects\OMS2.0\run\src\main\java\com\OMS\run\tool\k8sConfig.java

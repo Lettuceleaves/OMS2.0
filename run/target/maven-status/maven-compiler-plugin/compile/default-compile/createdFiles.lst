@@ -1,8 +1,6 @@
-com\OMS\run\client\runClient.class
 com\OMS\run\controller\runCtrller.class
+com\OMS\run\tool\k8sConfig.class
 com\OMS\run\config\inputCoMapCacheConfig.class
 com\OMS\run\service\impl\runServiceImpl.class
 com\OMS\run\runApplication.class
-com\OMS\run\service\impl\cacheServiceImpl.class
 com\OMS\run\service\runService.class
-com\OMS\run\service\cacheService.class

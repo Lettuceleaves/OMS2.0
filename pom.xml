@@ -28,11 +28,10 @@
 
     <modules>
         <module>contest</module>
-        <module>docManage</module>
         <module>gateWay</module>
-        <module>infoTable</module>
         <module>run</module>
         <module>practice</module>
+        <module>advice</module>
     </modules>
 
     <properties>
@@ -51,6 +50,7 @@
         <lombok.version>1.18.36</lombok.version>
         <ai-api.version>1.0.0-M5</ai-api.version>
         <k8s.version>16.0.0</k8s.version>
+        <spring-test.version>2.5.4</spring-test.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -163,7 +163,6 @@
                 <artifactId>client-java</artifactId>
                 <version>${k8s.version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>

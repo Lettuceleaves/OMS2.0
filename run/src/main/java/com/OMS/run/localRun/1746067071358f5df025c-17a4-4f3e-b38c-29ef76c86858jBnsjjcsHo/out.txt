@@ -1,4 +1,0 @@
-test.c: In function 'runTimeErr':
-test.c:25:15: warning: division by zero [-Wdiv-by-zero]
-     int a = 1 / 0;
-               ^

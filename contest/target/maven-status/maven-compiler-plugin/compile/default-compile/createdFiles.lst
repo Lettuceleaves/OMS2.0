@@ -1,1 +1,14 @@
+com\OMS\contest\controller\contestCtrller.class
+com\OMS\contest\model\ansFile.class
+com\OMS\contest\repos\impl\minioReposImpl$1.class
+com\OMS\contest\client\runClient.class
+com\OMS\contest\service\impl\contestServiceImpl.class
+com\OMS\contest\service\contestService.class
+com\OMS\contest\model\contest.class
+com\OMS\contest\repos\mybatisRepos.class
+com\OMS\contest\model\caseFile.class
+com\OMS\contest\repos\impl\sqlHelper.class
 com\OMS\contest\ContestApplication.class
+com\OMS\contest\repos\impl\minioReposImpl.class
+com\OMS\contest\config\minioConfig.class
+com\OMS\contest\repos\minioRepos.class

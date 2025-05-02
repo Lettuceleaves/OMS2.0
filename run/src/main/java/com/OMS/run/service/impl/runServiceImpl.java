@@ -1,6 +1,5 @@
 package com.OMS.run.service.impl;
 
-import com.OMS.run.client.runClient;
 import com.OMS.run.service.runService;
 import okio.Path;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,14 +21,8 @@ import java.util.UUID;
 @Service
 public class runServiceImpl implements runService {
 
-    @Autowired
-    private runClient runClient;
-
-    @Autowired
-    private cacheServiceImpl cacheService;
-
     @Override
-    public String[] run(MultipartFile userFile, String problemName, String language, MultipartFile[] inputFiles) throws Exception {
+    public String[] run(MultipartFile userFile, String language, MultipartFile[] inputFiles) throws Exception {
 //        MultipartFile[] inputFiles = cacheService.testGetInputFile(problemName); TODO
         // 生成uuid加一串随机字符加时间戳
         String dirName = System.currentTimeMillis() + UUID.randomUUID().toString() + RandomStringUtils.randomAlphabetic(10);
@@ -46,7 +39,7 @@ public class runServiceImpl implements runService {
                 File inputFilePath = new File(path + "/in" + (i + 1) + ".txt");
                 inputFiles[i].transferTo(inputFilePath);
             }
-        } else throw new Exception("No input files found for problem: " + problemName);
+        } else throw new Exception("No input files found for problem");
         // 在该目录下新建out.txt文件
 //        File outputFilePath = new File(path + "\\out.txt");
         File[] files = new File[inputFiles.length];
