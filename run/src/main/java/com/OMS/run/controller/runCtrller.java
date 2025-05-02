@@ -22,8 +22,13 @@ public class runCtrller {
         inputFiles[1] = f2;
         inputFiles[2] = f3;
         System.out.println("test");
-        runService.run(u, "hello", "c", inputFiles);
-        return "jobTest success";
+        String[] ans;
+        ans = runService.run(u, "hello", "c", inputFiles);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < ans.length; i++) {
+            sb.append(ans[i] + "\n");
+        }
+        return sb.toString();
     }
 
     @GetMapping("/hello")
