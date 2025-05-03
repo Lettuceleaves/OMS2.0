@@ -2,12 +2,12 @@ E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\client\runClient.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\config\minioConfig.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\ContestApplication.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\controller\contestCtrller.java
-E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\model\ansFile.java
-E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\model\caseFile.java
+E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\controller\testCtrller.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\model\contest.java
+E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\model\problem.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\repos\impl\minioReposImpl.java
-E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\repos\impl\sqlHelper.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\repos\minioRepos.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\repos\mybatisRepos.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\service\contestService.java
 E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\service\impl\contestServiceImpl.java
+E:\projects\OMS2.0\contest\src\main\java\com\OMS\contest\tool\CustomMultipartFile.java

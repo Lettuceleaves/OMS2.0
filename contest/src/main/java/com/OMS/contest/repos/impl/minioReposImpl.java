@@ -24,7 +24,7 @@ public class minioReposImpl implements minioRepos {
     @Autowired
     private MinioClient minioClient;
 
-    public MultipartFile downloadFileAsMultipartFile(String bucketName, String objectName) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException {
+    public byte[] downloadFileAsMultipartFile(String bucketName, String objectName) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException {
         // 从MinIO下载文件，获取InputStream
         try (InputStream inputStream = minioClient.getObject(
                 GetObjectArgs.builder()
@@ -33,10 +33,7 @@ public class minioReposImpl implements minioRepos {
                         .build())) {
 
             // 将InputStream转换为byte数组
-            byte[] bytes = inputStream.readAllBytes();
-
-            // 创建一个CustomMultipartFile
-            return new CustomMultipartFile("file", objectName, "text/plain", bytes);
+            return inputStream.readAllBytes();
         }
     }
 

@@ -1,17 +1,24 @@
 package com.OMS.practice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.codec.ServerSentEvent;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 
-@FeignClient(name = "advice")
+@FeignClient(name = "run", url = "localhost:1111")
 @RestController
+
 public interface runClient {
-    @GetMapping("/advice")
-    Flux<ServerSentEvent<String>> advice(@RequestParam(value = "userFile") String userFile) throws IOException;
+
+    @PostMapping("/runFeign")
+    List<byte[]> testFeign(@RequestParam("input") List<byte[]> files, @RequestParam("user") byte[] u) throws Exception;
+
+    @PostMapping("/testMinioTransfer")
+    String testMinioTransfer(@RequestParam("file") byte[] file);
+
+    @PostMapping("/testFilesTrasfer")
+    String testFilesTrasfer(@RequestParam("file") List<byte[]> files);
 }

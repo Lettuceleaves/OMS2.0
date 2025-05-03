@@ -6,9 +6,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name = "run")
+import java.util.List;
+
+@FeignClient(name = "run", url = "localhost:8089")
 @RestController
 public interface runClient {
-    @PostMapping("/run")
-    String[] test(@RequestParam("input") MultipartFile[] files, @RequestParam("user") MultipartFile u) throws Exception;
+
+    @PostMapping("/runFeign")
+    List<byte[]> testFeign(@RequestParam("input") byte[][] files, @RequestParam("user") byte[] u) throws Exception;
+
+    @PostMapping("/testMinioTransfer")
+    String testMinioTransfer(@RequestParam("file") byte[] file);
 }

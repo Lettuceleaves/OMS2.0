@@ -51,6 +51,7 @@
         <ai-api.version>1.0.0-M5</ai-api.version>
         <k8s.version>16.0.0</k8s.version>
         <spring-test.version>2.5.4</spring-test.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -91,6 +92,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webflux</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- MyBatis-Plus Starter -->
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- MyBatis-Plus -->
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
 
             <!-- nacos starter -->
@@ -166,5 +183,25 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Lombok Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

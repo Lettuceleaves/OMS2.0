@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class runCtrller {
@@ -15,9 +17,8 @@ public class runCtrller {
     @Autowired
     runService runService;
 
-    @PostMapping("/run")
-    public String[] test(@RequestParam("input") MultipartFile[] files, @RequestParam("user") MultipartFile u) throws Exception {
+    @PostMapping("/runFeign")
+    public List<byte[]> testFeign(@RequestParam("input") List<byte[]> files, @RequestParam("user") byte[] u) throws Exception {
         return runService.run(u,"c", files);
     }
-
 }

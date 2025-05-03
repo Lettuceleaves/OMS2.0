@@ -9,12 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class contestCtrller {
 
     @Autowired
-    private contestService service; // Assuming you have a service interface for contest operations
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello from Contest Service!";
-    }
+    private contestService service;
 
     @GetMapping("/contest/getInfo/{contestTitle}")
     public String getContestInfo(@PathVariable("contestTitle") String contestTitle) { // contest class TODO
@@ -24,6 +19,6 @@ public class contestCtrller {
 
     @PostMapping("/contest/submit/{problemName}")
     public String submit(@PathVariable("problemName") String problemName, @RequestParam("userFile") MultipartFile userFile) throws Exception {
-        return service.submit(problemName, userFile);
+        return service.submit(problemName, userFile.getBytes());
     }
 }

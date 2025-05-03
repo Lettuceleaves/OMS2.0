@@ -1,9 +1,11 @@
-com\OMS\practice\repos\reposInterface.class
-com\OMS\practice\model\caseFile.class
+com\OMS\practice\client\adviceClient.class
+com\OMS\practice\repos\minioRepos.class
+com\OMS\practice\repos\mybatisRepos.class
 com\OMS\practice\PracticeApplication.class
-com\OMS\practice\service\impl\practiceServiceImpl.class
 com\OMS\practice\client\runClient.class
-com\OMS\practice\model\ansFile.class
 com\OMS\practice\model\problem.class
 com\OMS\practice\service\practiceService.class
+com\OMS\practice\config\minioConfig.class
+com\OMS\practice\config\feignConfig.class
+com\OMS\practice\repos\impl\minioReposImpl.class
 com\OMS\practice\controller\practiceCtrller.class

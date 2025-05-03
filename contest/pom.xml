@@ -48,11 +48,16 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- mybatis -->
-
+        <!-- MyBatis-Plus Starter -->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+
+        <!-- MyBatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
         </dependency>
 
         <!-- lombok -->
@@ -73,10 +78,21 @@
 
     <build>
         <plugins>
+
+            <!-- Spring Boot Maven Plugin -->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!-- Lombok Plugin -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
         </plugins>
     </build>
 

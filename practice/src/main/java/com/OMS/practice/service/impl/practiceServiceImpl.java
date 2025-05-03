@@ -2,47 +2,52 @@ package com.OMS.practice.service.impl;
 
 import com.OMS.practice.client.runClient;
 import com.OMS.practice.model.problem;
-import com.OMS.practice.repos.reposInterface;
+import com.OMS.practice.repos.minioRepos;
+import com.OMS.practice.repos.mybatisRepos;
 import com.OMS.practice.service.practiceService;
+import io.minio.errors.MinioException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Flux;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
 public class practiceServiceImpl implements practiceService {
 
     @Autowired
-    private reposInterface repository;
+    private mybatisRepos mybatisRepos;
 
     @Autowired
-    private runClient client;
+    private minioRepos minioRepos;
 
-    @Override
-    public String submit(String problemName, MultipartFile userFile) {
-        return "hello world";
-    }
-
-    @Override
-    public Flux<ServerSentEvent<String>> advice(MultipartFile userFile) throws IOException {
-        StringBuilder fileContent = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(userFile.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                fileContent.append(line).append("\n");
-            }
-        }
-        return client.advice(fileContent.toString());
-    }
+    @Autowired
+    private runClient runClient;
 
     @Override
     public List<problem> getProblemList(int page) {
-        return repository.getProblems(page);
+        return mybatisRepos.getProblems(page);
     }
+
+    public String submit(String problemName, byte[] userFile) throws Exception {
+        problem problemInfo = mybatisRepos.getProblemByName(problemName);
+        if (problemInfo == null) throw new RuntimeException("Problem not found");
+        int caseNum = problemInfo.getCaseNum();
+        List<byte[]> cases = new java.util.ArrayList<>();
+        for (int i = 0; i < caseNum; i++) {
+            byte[] caseFile = minioRepos.downloadFile("case", problemName + "/" + i + ".txt");
+            cases.add(caseFile);
+        }
+        List<byte[]> result = runClient.testFeign(cases, userFile); // TODO
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < caseNum; i++) {
+            System.out.println(new String(cases.get(i)));
+            sb.append(new String(result.get(i)));
+        }
+        return sb.toString();
+    }
+
 }

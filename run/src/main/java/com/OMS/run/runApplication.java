@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import static java.lang.Thread.sleep;
 
 @SpringBootApplication
-@EnableFeignClients
 public class runApplication {
 
     public static void main(String[] args) throws InterruptedException {

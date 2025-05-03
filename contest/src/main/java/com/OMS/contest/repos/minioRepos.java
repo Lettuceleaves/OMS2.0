@@ -8,5 +8,5 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public interface minioRepos {
-    MultipartFile downloadFileAsMultipartFile(String bucketName, String objectName) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException;
+    byte[] downloadFileAsMultipartFile(String bucketName, String objectName) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException;
 }
