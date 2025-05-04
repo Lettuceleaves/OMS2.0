@@ -31,6 +31,7 @@ public class practiceServiceImpl implements practiceService {
         return mybatisRepos.getProblems(page);
     }
 
+    @Override
     public String submit(String problemName, byte[] userFile) throws Exception {
         problem problemInfo = mybatisRepos.getProblemByName(problemName);
         if (problemInfo == null) throw new RuntimeException("Problem not found");
@@ -40,7 +41,7 @@ public class practiceServiceImpl implements practiceService {
             byte[] caseFile = minioRepos.downloadFile("case", problemName + "/" + i + ".txt");
             cases.add(caseFile);
         }
-        List<byte[]> result = runClient.testFeign(cases, userFile); // TODO
+        List<byte[]> result = runClient.testFeign(cases, userFile);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < caseNum; i++) {
@@ -50,4 +51,114 @@ public class practiceServiceImpl implements practiceService {
         return sb.toString();
     }
 
+    @Override
+    public String putProblem(problem newProblem) {
+        try {
+            mybatisRepos.insert(newProblem);
+            minioRepos.newDirectory("case", newProblem.getName());
+            minioRepos.newDirectory("answer", newProblem.getName());
+            return "Problem added successfully"; // 打包成事务 TODO
+        } catch (Exception e) {
+            return "Error adding problem: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String deleteProblemByName(String problemName) {
+        try {
+            if (mybatisRepos.deleteProblemByName(problemName) != 1) {
+                return "Problem not found";
+            }
+            minioRepos.deleteDirectory("case", problemName);
+            minioRepos.deleteDirectory("answer", problemName);
+            return "Problem deleted successfully";
+        } catch (Exception e) {
+            return "Error deleting problem: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String deleteProblemById(int id) {
+        try {
+            String problemName = mybatisRepos.getProblemById(id).getName();
+            if (mybatisRepos.deleteById(id) != 1) {
+                return "Problem not found";
+            }
+            minioRepos.deleteDirectory("case", problemName);
+            minioRepos.deleteDirectory("answer", problemName);
+            return "Problem deleted successfully";
+        } catch (Exception e) {
+            return "Error deleting problem: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String updateProblemByName(problem updatedProblem) {
+        try {
+            if (mybatisRepos.updateProblem(updatedProblem) != 1) {
+                return "Problem not found";
+            }
+            return "Problem updated successfully";
+        } catch (Exception e) {
+            return "Error updating problem: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String updateProblemById(problem updatedProblem) {
+        try {
+            problem existingProblem = mybatisRepos.getProblemById(updatedProblem.getId());
+            if (existingProblem == null) {
+                return "Problem not found";
+            }
+            mybatisRepos.updateById(updatedProblem);
+            return "Problem updated successfully";
+        } catch (Exception e) {
+            return "Error updating problem: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String uploadCaseById(int problemId, byte[] caseFile, byte[] answerFile) {
+        try {
+            problem problemInfo = mybatisRepos.getProblemById(problemId);
+            if (problemInfo == null) {
+                return "Problem not found";
+            }
+            String problemName = problemInfo.getName();
+            // Save case file
+            minioRepos.uploadFile("case", problemName + "/" + (problemInfo.getCaseNum()) + ".txt", caseFile);
+            // Save answer file
+            minioRepos.uploadFile("answer", problemName + "/" + (problemInfo.getCaseNum()) + ".txt", answerFile);
+            // Update case number in the problem
+            problemInfo.setCaseNum(problemInfo.getCaseNum() + 1);
+            mybatisRepos.updateById(problemInfo);
+            return "Case files uploaded successfully";
+        } catch (IOException | MinioException | NoSuchAlgorithmException | InvalidKeyException e) {
+            return "Error uploading case files: " + e.getMessage();
+        }
+    }
+
+    @Override
+    public String deleteCaseById(int problemId, int caseId) {
+        try {
+            problem problemInfo = mybatisRepos.getProblemById(problemId);
+            if (problemInfo == null) {
+                return "Problem not found";
+            }
+            String problemName = problemInfo.getName();
+            // Delete case file
+            minioRepos.deleteFile("case", problemName + "/" + caseId + ".txt");
+            // Delete answer file
+            minioRepos.deleteFile("answer", problemName + "/" + caseId + ".txt");
+            // Update case number in the problem
+            if (caseId < problemInfo.getCaseNum()) {
+                problemInfo.setCaseNum(problemInfo.getCaseNum() - 1);
+                mybatisRepos.updateById(problemInfo);
+            }
+            return "Case files deleted successfully";
+        } catch (IOException | MinioException | NoSuchAlgorithmException | InvalidKeyException e) {
+            return "Error deleting case files: " + e.getMessage();
+        }
+    }
 }

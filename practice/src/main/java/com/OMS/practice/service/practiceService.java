@@ -14,4 +14,11 @@ import java.util.List;
 public interface practiceService {
     String submit(String problemName, byte[] userFile) throws Exception;
     List<problem> getProblemList(int page);
+    String putProblem(problem newProblem);
+    String deleteProblemByName(String problemName);
+    String deleteProblemById(int id);
+    String updateProblemByName(problem updatedProblem);
+    String updateProblemById(problem updatedProblem);
+    String uploadCaseById(int problemId, byte[] caseFile, byte[] answerFile);
+    String deleteCaseById(int problemId, int caseId);
 }
