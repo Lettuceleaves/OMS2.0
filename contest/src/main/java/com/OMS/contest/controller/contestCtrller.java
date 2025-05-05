@@ -9,41 +9,42 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@RequestMapping("/contest")
 public class contestCtrller {
 
     @Autowired
     private contestService service;
 
-    @PostMapping("/contest/submit/{problemName}")
+    @PostMapping("/submit/{problemName}")
     public String submit(@PathVariable("problemName") String problemName, @RequestParam("userFile") MultipartFile userFile) throws Exception {
         return service.submit(problemName, userFile.getBytes());
     }
 
-    @PutMapping("/contest/put")
+    @PutMapping("/put")
     public String putContest(@RequestBody ContestRequest request) {
         contest newContest = request.getContest();
         int[] problemIds = request.getProblemIds();
         return service.putContest(newContest, problemIds);
     }
 
-    @DeleteMapping("/contest/delete/id/{id}")
+    @DeleteMapping("/delete/id/{id}")
     public String deleteContestById(@PathVariable("id") int id) {
         return service.deleteContestById(id);
     }
 
-    @DeleteMapping ("/contest/delete/name/{name}")
+    @DeleteMapping ("/delete/name/{name}")
     public String deleteContestByName(@PathVariable("name") String name) {
         return service.deleteContestByName(name);
     }
 
-    @PostMapping("/contest/update")
+    @PostMapping("/update")
     public String updateContestById(@RequestBody ContestRequest request) {
         contest updatedContest = request.getContest();
         int[] problemIds = request.getProblemIds();
         return service.updateContest(updatedContest, problemIds);
     }
 
-    @GetMapping("/contest/getInfo/{name}")
+    @GetMapping("/getInfo/{name}")
     public contest getContestInfo(@PathVariable("name") String name) {
         return service.getContestInfo(name);
     }

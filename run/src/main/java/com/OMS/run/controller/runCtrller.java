@@ -18,7 +18,7 @@ public class runCtrller {
     runService runService;
 
     @PostMapping("/runFeign")
-    public List<byte[]> testFeign(@RequestParam("input") List<byte[]> files, @RequestParam("user") byte[] u) throws Exception {
-        return runService.run(u,"c", files);
+    public List<byte[]> testFeign(@RequestBody List<byte[]> files) throws Exception {
+        return runService.run("c", files);
     }
 }

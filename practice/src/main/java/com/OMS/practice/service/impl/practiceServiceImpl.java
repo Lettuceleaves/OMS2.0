@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -37,16 +38,24 @@ public class practiceServiceImpl implements practiceService {
         if (problemInfo == null) throw new RuntimeException("Problem not found");
         int caseNum = problemInfo.getCaseNum();
         List<byte[]> cases = new java.util.ArrayList<>();
+        cases.add(userFile);
+        System.out.println("------- " + caseNum + " -------");
         for (int i = 0; i < caseNum; i++) {
             byte[] caseFile = minioRepos.downloadFile("case", problemName + "/" + i + ".txt");
             cases.add(caseFile);
         }
-        List<byte[]> result = runClient.testFeign(cases, userFile);
+        System.out.print(new String(userFile));
+        List<byte[]> result = runClient.testFeign(cases);
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < caseNum; i++) {
-            System.out.println(new String(cases.get(i)));
-            sb.append(new String(result.get(i)));
+        if (result == null || result.isEmpty()) {
+            return "No results returned";
+        } else if (result.get(0).length != 0) {
+            return "Error: " + new String(result.get(0));
+        }
+        for (int i = 1; i <= caseNum; i++) {
+            System.out.println("case:" + i + ": " + new String(result.get(i)));
+            sb.append(new String(result.get(i))).append("\n");
         }
         return sb.toString();
     }

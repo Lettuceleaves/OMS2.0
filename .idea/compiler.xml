@@ -15,20 +15,12 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
-        <module name="run" />
         <module name="practice" />
+        <module name="run" />
+        <module name="contest" />
+        <module name="auth" />
         <module name="gateWay" />
         <module name="advice" />
-      </profile>
-      <profile name="Annotation profile for contest" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
-        <module name="contest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -39,6 +31,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="advice" options="-parameters" />
+      <module name="auth" options="-parameters" />
       <module name="contest" options="-parameters" />
       <module name="docManage" options="-parameters" />
       <module name="gateWay" options="-parameters" />

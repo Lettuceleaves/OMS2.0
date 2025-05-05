@@ -32,6 +32,7 @@
         <module>run</module>
         <module>practice</module>
         <module>advice</module>
+        <module>auth</module>
     </modules>
 
     <properties>
@@ -52,6 +53,9 @@
         <k8s.version>16.0.0</k8s.version>
         <spring-test.version>2.5.4</spring-test.version>
         <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <jwt.version>0.12.6</jwt.version>
+        <hibernate-entity-manager.version>5.4.32.Final</hibernate-entity-manager.version>
+        <spring-cloud-openfeign.version>4.1.1</spring-cloud-openfeign.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -179,6 +183,30 @@
                 <groupId>io.kubernetes</groupId>
                 <artifactId>client-java</artifactId>
                 <version>${k8s.version}</version>
+            </dependency>
+
+            <!-- jwt -->
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- Hibernate Entity Manager -->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate-entity-manager.version}</version>
+            </dependency>
+
+            <!-- spring-cloud openfeign -->
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring-cloud-openfeign.version}</version>
             </dependency>
 
         </dependencies>

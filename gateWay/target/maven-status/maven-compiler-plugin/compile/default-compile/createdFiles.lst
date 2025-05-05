@@ -1,1 +1,5 @@
 com\OMS\gateway\GateWayApplication.class
+com\OMS\gateway\tool\authClientConfig.class
+com\OMS\gateway\service\impl\gateWayServiceImpl$LoginRequest.class
+com\OMS\gateway\service\impl\gateWayServiceImpl.class
+com\OMS\gateway\service\gateWayService.class

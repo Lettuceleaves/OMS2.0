@@ -1,5 +1,4 @@
 com\OMS\contest\controller\contestCtrller.class
-com\OMS\contest\controller\testCtrller.class
 com\OMS\contest\service\impl\contestServiceImpl.class
 com\OMS\contest\service\contestService.class
 com\OMS\contest\model\contest.class

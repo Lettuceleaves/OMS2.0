@@ -9,10 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@FeignClient(name = "practice", url = "localhost:8089")
+@FeignClient(name = "practice", url = "localhost:2222")
 @RestController
 public interface practiceClient {
 
-    @PostMapping("/submitFeign/{problemName}")
+    @PostMapping("/practice/submitFeign/{problemName}")
     String submitFeign(@PathVariable("problemName") String problemName, @RequestParam("userFile") byte[] userFile) throws Exception;
 }

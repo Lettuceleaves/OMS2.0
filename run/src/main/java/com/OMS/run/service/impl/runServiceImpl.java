@@ -19,11 +19,14 @@ import java.util.*;
 public class runServiceImpl implements runService {
 
     @Override
-    public List<byte[]> run(byte[] userFile, String language, List<byte[]> inputFiles) throws Exception {
+    public List<byte[]> run(String language, List<byte[]> inputFiles) throws Exception {
         // 创建临时目录
         String dirName = createTempDirectory();
         String path = "/app/localRun" + "/" + dirName;
         Path.get(path).toFile().mkdirs();
+
+        byte[] userFile = inputFiles.get(0);
+        inputFiles.remove(0);
 
         // 保存用户文件和输入文件
         File userFilePath = saveUserFile(path, userFile, language);

@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/run/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/advice/pom.xml" />
+        <option value="$PROJECT_DIR$/auth/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
