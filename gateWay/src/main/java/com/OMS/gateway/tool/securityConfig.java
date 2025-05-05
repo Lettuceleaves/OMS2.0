@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Collections;
 
 import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.server.ServerWebExchange;
@@ -40,6 +42,8 @@ public class securityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // 禁用 CSRF 保护
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/auth/**").permitAll() // 允许访问 /auth 路径下的所有请求
+                        .pathMatchers("/practice/rootHello").hasRole("ROOT")
+                        .pathMatchers("/practice/hello").hasRole("USER")
                         .anyExchange().authenticated()) // 其他路径需要认证
                 .addFilterBefore(new JwtFilter(), SecurityWebFiltersOrder.AUTHENTICATION) // 添加 JWT 过滤器
                 .build();
@@ -68,9 +72,14 @@ public class securityConfig {
                             .parse(jwtToken).accept(Jws.CLAIMS)   // 解析jws
                             .getPayload();  // JWT有效载荷
 
+                    // 获取用户角色
+                    String role = claims.get("role", String.class);
+
+                    System.out.println(role);
+
                     // 创建 Authentication 对象
                     Authentication authentication = new UsernamePasswordAuthenticationToken(
-                            claims.getSubject(), null, null);
+                            claims.getSubject(), null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role)));
 
                     // 设置 SecurityContext
                     return chain.filter(exchange)

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Mapper
 @Repository
 public interface userMybatisRepos {
-    @Insert("INSERT INTO user (id, user_name, password) VALUES (#{id}, #{userName}, #{password})")
+    @Insert("INSERT INTO user (id, user_name, password, role) VALUES (#{id}, #{userName}, #{password}, #{role})")
     int save(user user);
 
     @Select("SELECT * FROM user WHERE user_name = #{userName}")

@@ -21,7 +21,7 @@ public class jwt {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10小时有效期
-                .claim("roles", role) // 存储用户角色
+                .claim("role", role) // 存储用户角色
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }

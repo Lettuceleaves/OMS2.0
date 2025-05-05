@@ -34,6 +34,7 @@ public class authServiceImpl implements authService {
     public user authenticate(String username, String password) {
         user user = userMybatisRepos.findByUsername(username);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println(user.getRole());
             return user;
         } else {
             System.out.println("Invalid credentials");

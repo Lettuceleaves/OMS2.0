@@ -22,6 +22,16 @@ public class practiceCtrller {
     @Autowired
     private adviceClient client;
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello from Practice Service!";
+    }
+
+    @GetMapping("/rootHello")
+    public String rootHello() {
+        return "Hello from Practice Service Root!";
+    }
+
     @GetMapping("testAdvice")
     public Flux<ServerSentEvent<String>> getAdvice(@RequestParam("userFile") MultipartFile userFile) throws IOException {
         return client.advice(new String(userFile.getBytes()));
