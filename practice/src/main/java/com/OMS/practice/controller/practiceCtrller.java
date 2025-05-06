@@ -3,6 +3,7 @@ package com.OMS.practice.controller;
 import com.OMS.practice.client.adviceClient;
 import com.OMS.practice.model.problem;
 import com.OMS.practice.service.practiceService;
+import io.minio.errors.MinioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -39,17 +42,22 @@ public class practiceCtrller {
 
     @PostMapping("/submit/{problemName}")
     public String submit(@PathVariable("problemName") String problemName, @RequestParam("userFile") MultipartFile userFile) throws Exception {
-        return practiceService.submit(problemName, userFile.getBytes());
+        return practiceService.submit(problemName, userFile.getBytes(), false);
     }
 
     @PostMapping("/submitFeign/{problemName}")
     public String submitFeign(@PathVariable("problemName") String problemName, @RequestParam("userFile") byte[] userFile) throws Exception {
-        return practiceService.submit(problemName, userFile);
+        return practiceService.submit(problemName, userFile, true);
     }
 
     @PutMapping("put")
-    public String putProblem(@RequestBody problem newProblem) {
+    public String putProblem(@RequestBody problem newProblem) throws MinioException, IOException, NoSuchAlgorithmException, InvalidKeyException {
         return practiceService.putProblem(newProblem);
+    }
+
+    @PutMapping("infomation/{name}")
+    public String putProblemInformation(@RequestBody MultipartFile newProblemFile, @PathVariable("name") String name) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException {
+        return practiceService.putProblemInfo(newProblemFile, name);
     }
 
     @DeleteMapping("delete/name/{name}")
@@ -62,9 +70,13 @@ public class practiceCtrller {
         return practiceService.deleteProblemById(id);
     }
 
-    @PostMapping("update/name/{name}") // 没有同步给minio文件夹改名
-    public String updateProblemByName(@RequestBody problem updatedProblem) {
-        return practiceService.updateProblemByName(updatedProblem);
+    @DeleteMapping("information/{name}")
+    public String deleteProblemInformationByName(@PathVariable("name") String name) {
+        try {
+            return practiceService.deleteProblemByName(name);
+        } catch (Exception e) {
+            return "Error deleting problem information: " + e.getMessage();
+        }
     }
 
     @PostMapping("update/id/{id}")

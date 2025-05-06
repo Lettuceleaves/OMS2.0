@@ -25,6 +25,82 @@ public class minioReposImpl implements minioRepos {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    public boolean checkExistFile(String bucketName, String objectName) {
+        try {
+            // 检查文件是否存在
+            minioClient.statObject(
+                    StatObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .build()
+            );
+            return true; // 文件存在
+        } catch (MinioException e) {
+            if (e.getMessage().contains("NoSuchKey")) {
+                return false; // 文件不存在
+            }
+            e.printStackTrace();
+            return false; // 发生其他错误
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+            return false; // 发生其他错误
+        }
+    }
+
+    // 给目标文件夹改名
+    public boolean changeDirName(String bucketName, String oldDirectoryName, String newDirectoryName) {
+        try {
+            // 检查旧目录是否存在
+            if (!checkExistFile(bucketName, oldDirectoryName)) {
+                return false; // 旧目录不存在
+            }
+
+            // 列出旧目录下的所有对象
+            Iterable<Result<Item>> results = minioClient.listObjects(
+                    ListObjectsArgs.builder()
+                            .bucket(bucketName)
+                            .prefix(oldDirectoryName)
+                            .recursive(true)
+                            .build()
+            );
+
+            // 遍历所有对象并重命名
+            for (Result<Item> result : results) {
+                Item item = result.get();
+                String oldObjectName = item.objectName();
+                String newObjectName = newDirectoryName + oldObjectName.substring(oldDirectoryName.length());
+
+                // 复制对象到新位置
+                minioClient.copyObject(
+                        CopyObjectArgs.builder()
+                                .bucket(bucketName)
+                                .object(newObjectName)
+                                .source(CopySource.builder()
+                                        .bucket(bucketName)
+                                        .object(oldObjectName)
+                                        .build())
+                                .build()
+                );
+
+                // 删除旧对象
+                minioClient.removeObject(
+                        RemoveObjectArgs.builder()
+                                .bucket(bucketName)
+                                .object(oldObjectName)
+                                .build()
+                );
+            }
+
+            return true; // 重命名成功
+        } catch (MinioException e) {
+            e.printStackTrace();
+            return false; // 发生错误
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+            return false; // 发生其他错误
+        }
+    }
+
     public byte[] downloadFile(String bucketName, String objectName) throws IOException, MinioException, NoSuchAlgorithmException, InvalidKeyException {
 
         // 检查Redis中是否存在文件内容

@@ -23,7 +23,7 @@ public interface mybatisRepos extends BaseMapper<problem> {
     @Update("UPDATE problem SET name = #{name}, case_num = #{caseNum}, description = #{description}, difficulty = #{difficulty}, acceptance = #{acceptance} WHERE id = #{id}")
     int updateProblem(problem prob);
 
-    @Select("SELECT * FROM problem LIMIT 20 OFFSET #{offset}")
+    @Select("SELECT * FROM problem LIMIT 20 OFFSET #{offset * 20}")
     List<problem> getProblems(int offset);
 
     @Select("SELECT * FROM problem WHERE name = #{name}")

@@ -12,12 +12,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface practiceService {
-    String submit(String problemName, byte[] userFile) throws Exception;
+    String submit(String problemName, byte[] userFile, boolean contestMode) throws Exception;
     List<problem> getProblemList(int page);
-    String putProblem(problem newProblem);
+    String putProblem(problem newProblem) throws MinioException, IOException, NoSuchAlgorithmException, InvalidKeyException;
+    String putProblemInfo(MultipartFile newProblemFile, String name) throws IOException, NoSuchAlgorithmException, InvalidKeyException, MinioException;
     String deleteProblemByName(String problemName);
     String deleteProblemById(int id);
-    String updateProblemByName(problem updatedProblem);
     String updateProblemById(problem updatedProblem);
     String uploadCaseById(int problemId, byte[] caseFile, byte[] answerFile);
     String deleteCaseById(int problemId, int caseId);
